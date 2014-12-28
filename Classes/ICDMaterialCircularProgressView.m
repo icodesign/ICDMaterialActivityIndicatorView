@@ -11,6 +11,15 @@
 
 @interface ICDMaterialCircularProgressView () {
     NSTimer *_timer;
+    CGFloat _scheduleTime;
+    CGFloat _initialProgress;
+    CGFloat _firstStartProgress;
+    CGFloat _secondStartProgress;
+    CGFloat _fullProgress;
+    CGFloat _firstProgressPendingTime;
+    CGFloat _firstStartProgressDuration;
+    CGFloat _secondProgressDuration;
+    CGFloat _secondStartProgressDuration;
 }
 @property (nonatomic, getter=isAnimating, readwrite) BOOL animating;
 @end
@@ -34,14 +43,28 @@
     self.progress = 0;
     self.startProgress = 0;
     self.animating = NO;
+    
+    _initialProgress = 0.1;
+    _firstStartProgress = 0.8;
+    _secondStartProgress = 1.8;
+    _fullProgress = 0.7;
+    
+    _firstProgressPendingTime = 0.1;
+    _firstStartProgressDuration = 0.7;
+    _secondProgressDuration = (_secondStartProgress - _firstStartProgress) * _firstStartProgressDuration / _firstStartProgress;
+    _secondStartProgressDuration = _secondProgressDuration;
+    
+    _scheduleTime = _firstStartProgressDuration + _secondProgressDuration;
+    
+    NSLog(@"_scheduleTime: %f, _secondProgressDuration: %f", _scheduleTime, _secondStartProgressDuration);
 }
 
 - (void)setAnimating:(BOOL)animating{
     _animating = animating;
     if (self.isAnimating){
-        self.progress = 0.1;
+        self.progress = _initialProgress;
         self.startProgress = 0;
-        _timer = [NSTimer scheduledTimerWithTimeInterval:2.05f target:self selector:@selector(animate) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:_scheduleTime + 0.05f target:self selector:@selector(animate) userInfo:nil repeats:YES];
         [_timer fire];
     }else{
         self.progress = 0;
@@ -61,40 +84,61 @@
 }
 
 - (void)animate{
-    __block CGFloat randomProgress = 0.2;
+
     POPBasicAnimation *startProgressPendingLinearAnimation = [self linearAnimationForProperty:@"startProgress"];
+    NSLog(@"startProgress: %f, progress: %f", self.startProgress, self.progress);
     startProgressPendingLinearAnimation.fromValue = @(self.startProgress);
-    startProgressPendingLinearAnimation.toValue = @(1+self.startProgress);
-    startProgressPendingLinearAnimation.duration = 1.4;
+    startProgressPendingLinearAnimation.toValue = @(_firstStartProgress + self.startProgress);
+    startProgressPendingLinearAnimation.duration = _firstStartProgressDuration;
     startProgressPendingLinearAnimation.removedOnCompletion = YES;
     startProgressPendingLinearAnimation.beginTime = CACurrentMediaTime() + 0;
     [self pop_addAnimation:startProgressPendingLinearAnimation forKey:@"startProgressPendingLinearAnimation"];
     
     POPBasicAnimation *progressEaseInOutAnimation = [self easeInOutAnimationForProperty:@"progress"];
     progressEaseInOutAnimation.fromValue = @(self.progress);
-    progressEaseInOutAnimation.toValue = @(0.8 + self.progress);
-    progressEaseInOutAnimation.duration = 1.2;
+    progressEaseInOutAnimation.toValue = @(self.progress + _fullProgress);
+    progressEaseInOutAnimation.duration = _firstStartProgressDuration - _firstProgressPendingTime;
     progressEaseInOutAnimation.removedOnCompletion = YES;
-    progressEaseInOutAnimation.beginTime = CACurrentMediaTime() + randomProgress;
-    __weak typeof(self) weakSelf = self;
-    progressEaseInOutAnimation.completionBlock = ^(POPAnimation *animation, BOOL finished){
-        if (finished){
-            POPBasicAnimation *startProgressEndingAnimation = [self easeInOutAnimationForProperty:@"startProgress"];
-            startProgressEndingAnimation.fromValue = @(self.startProgress);
-            startProgressEndingAnimation.toValue = @(self.startProgress + 1);
-            startProgressEndingAnimation.duration = 2 - (1.2 + randomProgress);
-            startProgressEndingAnimation.removedOnCompletion = YES;
-            [weakSelf pop_addAnimation:startProgressEndingAnimation forKey:@"startProgressEndingAnimation"];
-            
-            POPBasicAnimation *progressEndingAnimation = [self easeInOutAnimationForProperty:@"progress"];
-            progressEndingAnimation.fromValue = @(self.progress);
-            progressEndingAnimation.toValue = @(self.progress - 0.8);
-            progressEndingAnimation.duration = 2 - (1.2 + randomProgress);
-            progressEndingAnimation.removedOnCompletion = YES;
-            [weakSelf pop_addAnimation:progressEndingAnimation forKey:@"progressEndingAnimation"];
-        }
-    };
+    progressEaseInOutAnimation.beginTime = CACurrentMediaTime() + _firstProgressPendingTime;
+    
     [self pop_addAnimation:progressEaseInOutAnimation forKey:@"progressEaseInOutAnimation"];
+    
+    POPBasicAnimation *startProgressEndingAnimation = [self linearAnimationForProperty:@"startProgress"];
+    startProgressEndingAnimation.fromValue = @(_firstStartProgress + self.startProgress);
+    startProgressEndingAnimation.toValue = @(_secondStartProgress + self.startProgress);
+    startProgressEndingAnimation.duration = _secondStartProgressDuration;
+    startProgressEndingAnimation.removedOnCompletion = YES;
+    startProgressEndingAnimation.beginTime = CACurrentMediaTime() + _firstStartProgressDuration;
+    [self pop_addAnimation:startProgressEndingAnimation forKey:@"startProgressEndingAnimation"];
+    
+    POPBasicAnimation *progressEndingAnimation = [self linearAnimationForProperty:@"progress"];
+    progressEndingAnimation.fromValue = @(self.progress + _fullProgress);
+    progressEndingAnimation.toValue = @(_initialProgress);
+    progressEndingAnimation.duration = _secondProgressDuration;
+    progressEndingAnimation.removedOnCompletion = YES;
+    progressEndingAnimation.beginTime = CACurrentMediaTime() + _firstStartProgressDuration;
+    [self pop_addAnimation:progressEndingAnimation forKey:@"progressEndingAnimation"];
+    
+    
+//    __weak typeof(self) weakSelf = self;
+//    progressEaseInOutAnimation.completionBlock = ^(POPAnimation *animation, BOOL finished){
+//        if (finished){
+//            POPBasicAnimation *startProgressEndingAnimation = [self linearAnimationForProperty:@"startProgress"];
+//            startProgressEndingAnimation.fromValue = @(self.startProgress);
+//            startProgressEndingAnimation.toValue = @(self.startProgress + 1);
+//            startProgressEndingAnimation.duration = secondAnimationTime;
+//            startProgressEndingAnimation.removedOnCompletion = YES;
+//            [weakSelf pop_addAnimation:startProgressEndingAnimation forKey:@"startProgressEndingAnimation"];
+//            
+//            POPBasicAnimation *progressEndingAnimation = [self easeInOutAnimationForProperty:@"progress"];
+//            progressEndingAnimation.fromValue = @(self.progress);
+//            progressEndingAnimation.toValue = @(self.progress - fullProgress);
+//            progressEndingAnimation.duration = secondAnimationTime;
+//            progressEndingAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+//            progressEndingAnimation.removedOnCompletion = YES;
+//            [weakSelf pop_addAnimation:progressEndingAnimation forKey:@"progressEndingAnimation"];
+//        }
+//    };
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
