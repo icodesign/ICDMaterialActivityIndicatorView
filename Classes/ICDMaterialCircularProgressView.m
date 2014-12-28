@@ -44,6 +44,14 @@
     self.startProgress = 0;
     self.animating = NO;
     
+    
+    /***********
+     
+     (_secondStartProgress - _firstStartProgress)/(_secondProgressDuration) = (_firstStartProgress)/(_firstStartProgressDuration)
+     (_secondStartProgress - _firstStartProgress)/(_secondProgressDuration) > (_fullProgress - _initialProgress)/(_secondProgressDuration)
+     
+     ***********/
+    
     _initialProgress = 0.1;
     _firstStartProgress = 0.8;
     _secondStartProgress = 1.8;
