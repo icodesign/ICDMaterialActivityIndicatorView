@@ -127,26 +127,6 @@
     progressEndingAnimation.beginTime = CACurrentMediaTime() + _firstStartProgressDuration;
     [self pop_addAnimation:progressEndingAnimation forKey:@"progressEndingAnimation"];
     
-    
-//    __weak typeof(self) weakSelf = self;
-//    progressEaseInOutAnimation.completionBlock = ^(POPAnimation *animation, BOOL finished){
-//        if (finished){
-//            POPBasicAnimation *startProgressEndingAnimation = [self linearAnimationForProperty:@"startProgress"];
-//            startProgressEndingAnimation.fromValue = @(self.startProgress);
-//            startProgressEndingAnimation.toValue = @(self.startProgress + 1);
-//            startProgressEndingAnimation.duration = secondAnimationTime;
-//            startProgressEndingAnimation.removedOnCompletion = YES;
-//            [weakSelf pop_addAnimation:startProgressEndingAnimation forKey:@"startProgressEndingAnimation"];
-//            
-//            POPBasicAnimation *progressEndingAnimation = [self easeInOutAnimationForProperty:@"progress"];
-//            progressEndingAnimation.fromValue = @(self.progress);
-//            progressEndingAnimation.toValue = @(self.progress - fullProgress);
-//            progressEndingAnimation.duration = secondAnimationTime;
-//            progressEndingAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-//            progressEndingAnimation.removedOnCompletion = YES;
-//            [weakSelf pop_addAnimation:progressEndingAnimation forKey:@"progressEndingAnimation"];
-//        }
-//    };
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
