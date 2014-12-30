@@ -25,6 +25,8 @@ typedef enum: NSInteger{
 @property (copy, nonatomic) UIColor *color;
 @property (nonatomic) CGFloat duration;
 @property (nonatomic) CGFloat lineWidth;
+@property (nonatomic) CGFloat progress;
+
 
 - (void)startAnimating;
 - (void)stopAnimating;
