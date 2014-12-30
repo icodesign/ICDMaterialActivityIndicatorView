@@ -1,10 +1,10 @@
-ICDMaterialCircularProgressView ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
+ICDMaterialActivityIndicatorView ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 =============
 
 
-This library implements a Google-Material-Design-Styled Circular Progress View for iOS. Inspired by [PCAngularActivityIndicatorView](https://github.com/phillipcaudell/PCAngularActivityIndicatorView)
+This library implements a Google-Material-Design-Styled Activity Indicator View for iOS. Inspired by [PCAngularActivityIndicatorView](https://github.com/phillipcaudell/PCAngularActivityIndicatorView)
 
-![Screenshot](https://github.com/iCodesign/ICDMaterialCircularProgressView/raw/master/ICDMaterialCircularProgressView.gif)
+![Screenshot](https://github.com/iCodesign/ICDMaterialActivityIndicatorView/raw/master/ICDMaterialActivityIndicatorView.gif)
 
 ## INSTALL
 
