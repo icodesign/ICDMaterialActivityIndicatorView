@@ -7,10 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "ICDMaterialCircularProgressView.h"
+#import "ICDMaterialActivityIndicatorView.h"
 
 @interface ViewController ()
-@property (strong,nonatomic) ICDMaterialCircularProgressView *progressView;
+@property (strong,nonatomic) ICDMaterialActivityIndicatorView *progressView;
 @end
 
 @implementation ViewController
@@ -18,8 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.progressView = [[ICDMaterialCircularProgressView alloc]initWithFrame:CGRectMake(140, 140, 40, 40)];
-    [self.progressView beginAnimation];
+    self.progressView = [[ICDMaterialActivityIndicatorView alloc]initWithFrame:CGRectMake(140, 140, 40, 40)];
+    [self.progressView startAnimating];
     [self.view addSubview:self.progressView];
 }
 

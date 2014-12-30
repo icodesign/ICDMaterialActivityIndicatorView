@@ -2,13 +2,11 @@ ICDMaterialCircularProgressView ![License MIT](https://go-shields.herokuapp.com/
 =============
 
 
-This library implements a Google-Material-Design-Styled Circular Progress View for iOS.
+This library implements a Google-Material-Design-Styled Circular Progress View for iOS. Inspired by [PCAngularActivityIndicatorView](https://github.com/phillipcaudell/PCAngularActivityIndicatorView)
 
 ![Screenshot](https://github.com/iCodesign/ICDMaterialCircularProgressView/raw/master/ICDMaterialCircularProgressView.gif)
 
 ## INSTALL
-
-> The library requires facebook [POP](https://github.com/facebook/pop) animation library and inspired by [DACircularProgress](https://github.com/danielamitay/DACircularProgress).
 
 1. Clone the repo.
 2. Run ```pod install``` in the directory to see the demo and source files.
