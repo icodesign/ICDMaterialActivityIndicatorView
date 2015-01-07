@@ -18,15 +18,17 @@ typedef enum: NSInteger{
 
 - (instancetype)initWithActivityIndicatorStyle:(ICDMaterialActivityIndicatorViewStyle)style;
 - (instancetype)initWithFrame:(CGRect)frame activityIndicatorStyle:(ICDMaterialActivityIndicatorViewStyle)style;
-@property(nonatomic) ICDMaterialActivityIndicatorViewStyle activityIndicatorViewStyle; // default is ICDMaterialActivityIndicatorViewStyleSmall
-@property(nonatomic) BOOL hidesWhenStopped;           // default is YES. calls -setHidden when animating gets set to NO
+// default is ICDMaterialActivityIndicatorViewStyleSmall
+@property(nonatomic) ICDMaterialActivityIndicatorViewStyle activityIndicatorViewStyle;
+// default is YES
+@property(nonatomic) BOOL hidesWhenStopped;
 @property(nonatomic, readonly, getter=isAnimating) BOOL animating;
 
 @property (copy, nonatomic) UIColor *color;
 @property (nonatomic) CGFloat duration;
 @property (nonatomic) CGFloat lineWidth;
+// Set certain progress to the activity indicator, really useful in Pull-To-Refresh
 @property (nonatomic) CGFloat progress;
-
 
 - (void)startAnimating;
 - (void)stopAnimating;
