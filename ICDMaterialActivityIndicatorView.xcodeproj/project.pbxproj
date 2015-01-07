@@ -15,7 +15,6 @@
 		9BF4543C1A527EEB00F03407 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BF454341A527EEB00F03407 /* Info.plist */; };
 		9BF4543D1A527EEB00F03407 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF454351A527EEB00F03407 /* main.m */; };
 		9BF4543E1A527EEB00F03407 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF454371A527EEB00F03407 /* ViewController.m */; };
-		EC02CB6794C02FA0DAE13120 /* libPods-ICDMaterialActivityIndicatorView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE3F7B55EAFE7FC63492648 /* libPods-ICDMaterialActivityIndicatorView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC02CB6794C02FA0DAE13120 /* libPods-ICDMaterialActivityIndicatorView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,11 +138,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BDF9F0D1A50178A00A57773 /* Build configuration list for PBXNativeTarget "ICDMaterialActivityIndicatorView" */;
 			buildPhases = (
-				0A6A0F84154AB5A1BE5D43F4 /* Check Pods Manifest.lock */,
 				9BDF9EE61A50178A00A57773 /* Sources */,
 				9BDF9EE71A50178A00A57773 /* Frameworks */,
 				9BDF9EE81A50178A00A57773 /* Resources */,
-				D76AD53F4B9958D846D40619 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,39 +196,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0A6A0F84154AB5A1BE5D43F4 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D76AD53F4B9958D846D40619 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ICDMaterialActivityIndicatorView/Pods-ICDMaterialActivityIndicatorView-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9BDF9EE61A50178A00A57773 /* Sources */ = {
