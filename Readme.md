@@ -8,8 +8,11 @@ This library implements a Google-Material-Design-Styled Activity Indicator View 
 
 ## INSTALL
 
-1. Clone the repo.
-2. Run ```pod install``` in the directory to see the demo and source files.
+```Clone the repo and copy the source files.```
+
+Or
+
+``` pod 'ICDMaterialActivityIndicatorView', '0.0.2' ``` if using cocoapods
 
 ## LICENSE
 
