@@ -51,23 +51,15 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame activityIndicatorStyle:(ICDMaterialActivityIndicatorViewStyle)style{
-    CGFloat lineWidth;
-    CGFloat duration;
     CGFloat radius;
     switch (style) {
         case ICDMaterialActivityIndicatorViewStyleSmall:
-            lineWidth = 1.0;
-            duration = 0.8;
             radius = 10;
             break;
         case ICDMaterialActivityIndicatorViewStyleMedium:
-            lineWidth = 2.0;
-            duration = 0.8;
             radius = 15;
             break;
         case ICDMaterialActivityIndicatorViewStyleLarge:
-            lineWidth = 3.0;
-            duration = 1.0;
             radius = 30;
             break;
     }
@@ -76,18 +68,54 @@
     }
     self = [super initWithFrame:frame];
     if (self){
-        _hidesWhenStopped = YES;
-        _animating = NO;
-        self.duration = duration;
-        self.color = [UIColor colorWithRed:39/255. green:140/255. blue:227/255. alpha:1.0];
-        self.lineWidth = lineWidth;
-        self.hidden = YES;
-        [self.layer addSublayer:self.indicatorLayer];
+        
+        [self commonInit];
+        [self setupForStyle:style];
         self.indicatorLayer.radius = radius;
     }
     return self;
 }
 
+- (void) setupForStyle: (ICDMaterialActivityIndicatorViewStyle) style {
+    
+    switch (style) {
+        case ICDMaterialActivityIndicatorViewStyleSmall:
+            self.lineWidth = 1.0;
+            self.duration = 0.8;
+            break;
+        case ICDMaterialActivityIndicatorViewStyleMedium:
+            self.lineWidth = 2.0;
+            self.duration = 0.8;
+            break;
+        case ICDMaterialActivityIndicatorViewStyleLarge:
+            self.lineWidth = 3.0;
+            self.duration = 1.0;
+            break;
+    }
+}
+
+- (void) commonInit {
+    _hidesWhenStopped = YES;
+    _animating = NO;
+    self.hidden = YES;
+    [self.layer addSublayer:self.indicatorLayer];
+    self.color = [UIColor colorWithRed:39/255. green:140/255. blue:227/255. alpha:1.0];
+}
+
+- (void)awakeFromNib {
+    
+    [self commonInit];
+    ICDMaterialActivityIndicatorViewStyle style = ICDMaterialActivityIndicatorViewStyleLarge;
+    float radius = self.frame.size.width / 2.;
+    if (radius <= 10.) {
+        style = ICDMaterialActivityIndicatorViewStyleSmall;
+    }
+    if (radius <= 20.) {
+        style = ICDMaterialActivityIndicatorViewStyleMedium;
+    }
+    [self setupForStyle:style];
+    self.indicatorLayer.radius = self.frame.size.width / 2.;
+}
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.indicatorLayer.frame = CGRectMake((self.bounds.size.width - 2.0 * self.indicatorLayer.radius) / 2.0 , (self.bounds.size.height - 2.0 * self.indicatorLayer.radius) / 2.0, 2.0 * self.indicatorLayer.radius, 2.0 * self.indicatorLayer.radius);
