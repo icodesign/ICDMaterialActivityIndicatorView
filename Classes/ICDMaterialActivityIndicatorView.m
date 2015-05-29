@@ -103,7 +103,7 @@
 }
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     [self commonInit];
     ICDMaterialActivityIndicatorViewStyle style = ICDMaterialActivityIndicatorViewStyleLarge;
     float radius = self.frame.size.width / 2.;
@@ -116,6 +116,7 @@
     [self setupForStyle:style];
     self.indicatorLayer.radius = self.frame.size.width / 2.;
 }
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.indicatorLayer.frame = CGRectMake((self.bounds.size.width - 2.0 * self.indicatorLayer.radius) / 2.0 , (self.bounds.size.height - 2.0 * self.indicatorLayer.radius) / 2.0, 2.0 * self.indicatorLayer.radius, 2.0 * self.indicatorLayer.radius);
