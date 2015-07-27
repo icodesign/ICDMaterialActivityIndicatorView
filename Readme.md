@@ -12,7 +12,7 @@ This library implements a Google-Material-Design-Styled Activity Indicator View 
 
 Or
 
-``` pod 'ICDMaterialActivityIndicatorView', '0.0.2' ``` if using cocoapods
+``` pod 'ICDMaterialActivityIndicatorView' ``` if using cocoapods
 
 ## LICENSE
 
