@@ -94,12 +94,18 @@
     }
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void) commonInit {
     _hidesWhenStopped = YES;
     _animating = NO;
     self.hidden = YES;
     [self.layer addSublayer:self.indicatorLayer];
     self.color = [UIColor colorWithRed:39/255. green:140/255. blue:227/255. alpha:1.0];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)awakeFromNib {
@@ -115,6 +121,14 @@
     }
     [self setupForStyle:style];
     self.indicatorLayer.radius = self.frame.size.width / 2.;
+}
+
+- (void)onAppWillEnterForeground {
+    [self startAnimating];
+}
+
+- (void)onAppDidEnterBackground {
+    [self stopAnimating];
 }
 
 - (void)layoutSubviews{
