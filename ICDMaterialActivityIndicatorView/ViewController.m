@@ -21,10 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressView = [[ICDMaterialActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 140, 320, 40) activityIndicatorStyle:ICDMaterialActivityIndicatorViewStyleSmall];
-//    [self.progressView startAnimating];
+    [self.progressView startAnimating];
     [self.view addSubview:self.progressView];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(animate) userInfo:nil repeats:YES];
-    [_timer fire];
+//    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(animate) userInfo:nil repeats:YES];
+//    [_timer fire];
 }
 
 - (void)animate{
