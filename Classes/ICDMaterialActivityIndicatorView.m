@@ -33,6 +33,7 @@
 
 @interface ICDMaterialActivityIndicatorView ()
 @property(nonatomic, readwrite, getter=isAnimating) BOOL animating;
+@property(nonatomic, readwrite, getter=shouldBeAnimating) BOOL shouldBeAnimating;
 @property(strong, nonatomic) ICDMaterialActivityIndicatorLayer *indicatorLayer;
 @end
 
@@ -225,16 +226,17 @@
 }
 
 - (void)startAnimating{
-    if (self.isAnimating) {
-        return;
-    }
-    self.animating = YES;
+    self.shouldBeAnimating = YES;
     self.hidden = NO;
-    [self resetAnimations];
+    if (!self.isAnimating) {
+        [self resetAnimations];
+    }
     self.indicatorLayer.speed = 1;
+    self.animating = YES;
 }
 
 - (void)stopAnimating{
+    self.shouldBeAnimating = NO;
     if (!self.isAnimating){
         return;
     }
@@ -242,9 +244,13 @@
         self.alpha = 0.0;
     } completion:^(BOOL finished) {
         self.alpha = 1.0;
-        self.hidden = self.hidesWhenStopped;
-        [self.indicatorLayer removeAllAnimations];
-        self.animating = NO;
+        if (!self.shouldBeAnimating) {
+            self.hidden = self.hidesWhenStopped;
+            [self.indicatorLayer removeAllAnimations];
+            self.animating = NO;
+        }
+        
+        
     }];
 }
 
