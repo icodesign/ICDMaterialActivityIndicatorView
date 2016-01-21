@@ -125,7 +125,9 @@
 }
 
 - (void)onAppWillEnterForeground {
-    [self startAnimating];
+    if (self.shouldBeAnimating) {
+        [self startAnimating];
+    }
 }
 
 - (void)onAppDidEnterBackground {
