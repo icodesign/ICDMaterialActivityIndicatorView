@@ -237,9 +237,6 @@
 
 - (void)stopAnimating{
     self.shouldBeAnimating = NO;
-    if (!self.isAnimating){
-        return;
-    }
     [UIView animateWithDuration:0.5 animations:^{
         self.alpha = 0.0;
     } completion:^(BOOL finished) {
