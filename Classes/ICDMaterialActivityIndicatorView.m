@@ -77,7 +77,7 @@
     return self;
 }
 
-- (void) setupForStyle: (ICDMaterialActivityIndicatorViewStyle) style {
+- (void)setupForStyle: (ICDMaterialActivityIndicatorViewStyle) style {
 
     switch (style) {
         case ICDMaterialActivityIndicatorViewStyleSmall:
@@ -99,7 +99,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) commonInit {
+- (void)commonInit {
     _hidesWhenStopped = YES;
     _animating = NO;
     self.hidden = YES;
@@ -230,9 +230,7 @@
 - (void)startAnimating{
     self.shouldBeAnimating = YES;
     self.hidden = NO;
-    if (!self.isAnimating) {
-        [self resetAnimations];
-    }
+    [self resetAnimations];
     self.indicatorLayer.speed = 1;
     self.animating = YES;
 }
@@ -251,8 +249,8 @@
             [self.indicatorLayer removeAllAnimations];
             self.animating = NO;
         }
-
-
+        
+        
     }];
 }
 
