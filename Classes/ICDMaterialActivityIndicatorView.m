@@ -69,7 +69,7 @@
     }
     self = [super initWithFrame:frame];
     if (self){
-        
+
         [self commonInit];
         [self setupForStyle:style];
         self.indicatorLayer.radius = radius;
@@ -78,7 +78,7 @@
 }
 
 - (void) setupForStyle: (ICDMaterialActivityIndicatorViewStyle) style {
-    
+
     switch (style) {
         case ICDMaterialActivityIndicatorViewStyleSmall:
             self.lineWidth = 1.0;
@@ -131,7 +131,7 @@
 }
 
 - (void)onAppDidEnterBackground {
-    [self stopAnimating];
+    self.animating = NO;
 }
 
 - (void)layoutSubviews{
@@ -173,12 +173,12 @@
     CAKeyframeAnimation *inAnimation = [CAKeyframeAnimation animationWithKeyPath:@"strokeEnd"];
     inAnimation.duration = self.duration;
     inAnimation.values = @[@(0), @(1)];
-    
+
     CAKeyframeAnimation *outAnimation = [CAKeyframeAnimation animationWithKeyPath:@"strokeStart"];
     outAnimation.duration = self.duration;
     outAnimation.values = @[@(0), @(0.8), @(1)];
     outAnimation.beginTime = self.duration / 1.5;
-    
+
     CAAnimationGroup *strokeAnimation = [CAAnimationGroup animation];
     strokeAnimation.animations = @[inAnimation, outAnimation];
     strokeAnimation.duration = self.duration + outAnimation.beginTime;
@@ -204,7 +204,7 @@
         CAAnimationGroup *strokeAnimation = [self createNewStrokeAnimation];
         strokeAnimation.speed = 0;
         [self.indicatorLayer addAnimation:strokeAnimation forKey:@"rotation"];
-        
+
         CABasicAnimation *rotateAnimation = [self createNewRotateAnimation];
         rotateAnimation.speed = 0;
         [self.indicatorLayer addAnimation:rotateAnimation forKey:@"stroke"];
@@ -251,8 +251,8 @@
             [self.indicatorLayer removeAllAnimations];
             self.animating = NO;
         }
-        
-        
+
+
     }];
 }
 
