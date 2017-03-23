@@ -184,6 +184,8 @@
     strokeAnimation.duration = self.duration + outAnimation.beginTime;
     strokeAnimation.repeatCount = INFINITY;
     strokeAnimation.timeOffset = self.progress;
+    strokeAnimation.removedOnCompletion = NO;
+    strokeAnimation.fillMode = kCAFillModeForwards;
     return strokeAnimation;
 }
 
@@ -194,6 +196,8 @@
     rotateAnimation.duration = self.duration * 1.5;
     rotateAnimation.repeatCount = INFINITY;
     rotateAnimation.timeOffset = self.progress;
+    rotateAnimation.removedOnCompletion = NO;
+    rotateAnimation.fillMode = kCAFillModeForwards;
     return rotateAnimation;
 }
 
@@ -210,21 +214,6 @@
         [self.indicatorLayer addAnimation:rotateAnimation forKey:@"stroke"];
         self.hidden = NO;
     }
-}
-
--(void)pauseLayer:(CALayer*)layer{
-    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    layer.speed = 0.0;
-    layer.timeOffset = pausedTime;
-}
-
--(void)resumeLayer:(CALayer*)layer{
-    CFTimeInterval pausedTime = [layer timeOffset];
-    layer.speed = 1.0;
-    layer.timeOffset = 0.0;
-    layer.beginTime = 0.0;
-    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
-    layer.beginTime = timeSincePause;
 }
 
 - (void)startAnimating{
